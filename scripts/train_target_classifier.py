@@ -14,12 +14,12 @@ from transformers import AutoModelForSequenceClassification, AutoTokenizer, get_
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description="Train a target classifier (EN/VN) on full-text target-labeled data. "
+        description="Train a Vietnamese target classifier on full-text target-labeled data. "
         "Reproduction script for the PLOS ONE manuscript's Block B (text -> target) model."
     )
     parser.add_argument(
         "--data-path",
-        default="data/hatexplain_target_fulltext.jsonl",
+        default="data/vihos_target_fulltext.jsonl",
         help="Prepared target-classification JSONL path (see data/).",
     )
     parser.add_argument(

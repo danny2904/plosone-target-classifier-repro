@@ -7,19 +7,18 @@ target classifier on the exact data used for the paper's numbers, without
 needing the full research repository.
 
 The target task predicts *who/what a toxic or hateful post is about*
-(e.g. `Refugee`, `Women`, `individual`, `religion/creed`), independent of
-the toxicity-label + rationale-span detection block.
+(e.g. `individual`, `groups`, `politics`, `race/ethnicity`,
+`religion/creed`), independent of the toxicity-label + rationale-span
+detection block.
 
 ## What's included
 
 ```
 data/
-  hatexplain_target_fulltext.jsonl      # English, derived from HateXplain
-  hatexplain_target_fulltext.meta.json  # label map + split sizes
   vihos_target_fulltext.jsonl           # Vietnamese, derived from ViHOS
   vihos_target_fulltext.meta.json       # label map + split sizes
 scripts/
-  train_target_classifier.py            # single training/eval script (EN + VN)
+  train_target_classifier.py            # training/eval script
 requirements.txt
 ```
 
@@ -55,16 +54,6 @@ pip install -r requirements.txt
 Requires a CUDA GPU for reasonable training time; falls back to CPU
 automatically if none is available.
 
-## Reproduce: English (HateXplain-derived)
-
-```bash
-python scripts/train_target_classifier.py \
-  --data-path data/hatexplain_target_fulltext.jsonl \
-  --model-name roberta-base \
-  --output-dir output/target_en \
-  --epochs 3 --batch-size 16 --seed 43
-```
-
 ## Reproduce: Vietnamese (ViHOS-derived)
 
 ```bash
@@ -81,20 +70,17 @@ saved model/tokenizer checkpoint.
 
 ## Data provenance
 
-- **English**: derived from [HateXplain](https://github.com/hate-alert/HateXplain)
-  (Mathew et al., 2021), re-formatted with target labels attached to each
-  full-text input.
-- **Vietnamese**: derived from [ViHOS](https://github.com/phusroyal/ViHOS)
-  (Vietnamese Hate and Offensive Spans), re-formatted analogously with the
-  target taxonomy used in the manuscript (`groups`, `individual`,
-  `politics`, `race/ethnicity`, `religion/creed`).
+Derived from [ViHOS](https://github.com/phusroyal/ViHOS) (Vietnamese Hate
+and Offensive Spans), re-formatted with the target taxonomy used in the
+manuscript (`groups`, `individual`, `politics`, `race/ethnicity`,
+`religion/creed`) attached to each full-text input.
 
-Please cite the original dataset papers (HateXplain, ViHOS) in addition to
-this manuscript if you use this data.
+Please cite the original ViHOS dataset paper in addition to this
+manuscript if you use this data.
 
 ## License
 
 Code in this repository is released under the MIT License (see
 `LICENSE`). The included data is a derived/relabeled subset provided for
 research reproducibility; it remains subject to the terms of the original
-HateXplain and ViHOS releases.
+ViHOS release.
