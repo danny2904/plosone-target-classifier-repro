@@ -1,11 +1,5 @@
 # Target Classification Reproduction Kit (PLOS ONE Manuscript)
 
-This is a minimal, self-contained reproduction package for the **target
-classification block** ("Block B": `text -> target`) reported in the PLOS
-ONE manuscript `main_PlosOne_Target.docx`. It lets a reader retrain the
-target classifier on the exact data used for the paper's numbers, without
-needing the full research repository.
-
 The target task predicts *who/what a toxic or hateful post is about*
 (e.g. `individual`, `groups`, `politics`, `race/ethnicity`,
 `religion/creed`), independent of the toxicity-label + rationale-span
@@ -53,7 +47,7 @@ pip install -r requirements.txt
 Requires a CUDA GPU for reasonable training time; falls back to CPU
 automatically if none is available.
 
-## Reproduce: Vietnamese (ViHOS-derived)
+## Reproduce: Vietnamese
 
 ```bash
 python scripts/train_target_classifier.py \
@@ -81,5 +75,4 @@ manuscript if you use this data.
 
 Code in this repository is released under the MIT License (see
 `LICENSE`). The included data is a derived/relabeled subset provided for
-research reproducibility; it remains subject to the terms of the original
-ViHOS release.
+research reproducibility.
