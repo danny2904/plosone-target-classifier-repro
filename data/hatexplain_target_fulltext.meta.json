@@ -1,0 +1,36 @@
+{
+  "input_mode": "full_text",
+  "test_span_source": "pred",
+  "label_list": [
+    "African",
+    "Arab",
+    "Asian",
+    "Caucasian",
+    "Hispanic",
+    "Homosexual",
+    "Islam",
+    "Jewish",
+    "Other",
+    "Refugee",
+    "Women"
+  ],
+  "label_to_id": {
+    "African": 0,
+    "Arab": 1,
+    "Asian": 2,
+    "Caucasian": 3,
+    "Hispanic": 4,
+    "Homosexual": 5,
+    "Islam": 6,
+    "Jewish": 7,
+    "Other": 8,
+    "Refugee": 9,
+    "Women": 10
+  },
+  "num_rows": 9372,
+  "split_counts": {
+    "train": 7500,
+    "val": 940,
+    "test": 932
+  }
+}
