@@ -16,7 +16,6 @@ detection block.
 ```
 data/
   vihos_target_fulltext.jsonl           # Vietnamese, derived from ViHOS
-  vihos_target_fulltext.meta.json       # label map + split sizes
 scripts/
   train_target_classifier.py            # training/eval script
 requirements.txt
