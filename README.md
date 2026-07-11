@@ -1,4 +1,4 @@
-# Target Classification Reproduction Kit (PLOS ONE Manuscript)
+# Target Classification Reproduction Kit
 
 The target task predicts *who/what a toxic or hateful post is about*
 (e.g. `individual`, `groups`, `politics`, `race/ethnicity`,
