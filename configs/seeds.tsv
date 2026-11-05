@@ -1,0 +1,13 @@
+backbone	condition	seeds
+xlm-roberta-base	B1	201,202,203,204,205,206
+xlm-roberta-base	B2	201,202,203,204,205,206
+xlm-roberta-base	B3	201,202,203,204,205,206
+vinai/phobert-base-v2	B1	42,43,44,45,46,47
+vinai/phobert-base-v2	B2	42,43,44,45,46,47
+vinai/phobert-base-v2	B3	42,43,44,45,46,47
+vinai/bartpho-word	B1	42,43,44,45,46,47
+vinai/bartpho-word	B2	42,43,44,45,46,47
+vinai/bartpho-word	B3	42,43,44,45,46,47
+uitnlp/visobert	B1	42,43,44,45,46
+uitnlp/visobert	B2	42,43,44,45,46
+uitnlp/visobert	B3	42,43,44,45,46

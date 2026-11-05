@@ -1,0 +1,14 @@
+# MRE (multitask rationale extractor) — Table 6 settings
+model_name: xlm-roberta-base
+max_len: 256
+epochs: 10
+batch_size: 16
+learning_rate: 2.0e-5
+weight_decay: 0.0
+alpha: 5.0            # weight of the BIO token loss
+use_fusion: 1         # rationale-guided fusion
+use_consistency: 1
+lambda_const: 0.1     # weight of the consistency loss
+use_class_weights: 1
+best_metric: val_f1
+seeds: [42, 43, 44, 45, 46]
