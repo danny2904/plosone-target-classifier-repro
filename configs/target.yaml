@@ -14,7 +14,7 @@ conditions:
   B3: data/vihos_target_highlighted_pred.jsonl  # predicted spans marked (test split)
 
 backbones:
-  xlm-roberta-base:       {seeds: [201, 202, 203, 204, 205, 206]}
+  xlm-roberta-base:       {seeds: [201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212]}
   vinai/phobert-base-v2:  {seeds: [42, 43, 44, 45, 46, 47]}
   vinai/bartpho-word:     {seeds: [42, 43, 44, 45, 46, 47]}
   uitnlp/visobert:        {seeds: [42, 43, 44, 45, 46]}

@@ -69,9 +69,12 @@ python scripts/eval_mre.py --provider local \
 `--only_stage1` reports the encoder's own predictions; the LLM-judge stages of the original
 pipeline are not part of the paper's reported numbers and are not needed here.
 
-Reference values (mean ± sd over seeds 42–46, test split): classification accuracy
-0.9047 ± 0.0074, classification macro-F1 0.9045, span accuracy 0.9120 ± 0.0033, span macro-F1
-0.8596 ± 0.0043.
+Reference values (mean ± sd over seeds 42–46, test split), as printed in Table 6 of the
+manuscript: classification accuracy 0.9033 ± 0.0062, classification macro-F1 0.9031 ± 0.0061, span
+accuracy 0.9111 ± 0.0032, span macro-F1 0.8588 ± 0.0044. Re-scoring the five saved checkpoints with
+`eval_mre.py --only_stage1` gives 0.9029 / 0.9028 / 0.9111 / 0.8571, i.e. within 0.4 percentage
+points of the table; that residual is the difference between the training-time and the eval-time
+scoring pass, not a configuration change.
 
 **Ablation used in the revision.** The loss is `L = L_cls + α·L_BIO + λ·L_cons`, and the ablation
 switches two flags: `--alpha 0 --use_consistency 0` (sentence head only), `--alpha 5.0
@@ -93,22 +96,35 @@ for cond in B1:vihos_target_fulltext B2:vihos_target_highlighted B3:vihos_target
 done
 ```
 
-Backbones and seeds used in the paper (`configs/seeds.tsv`): XLM-RoBERTa-Base 201–206,
-PhoBERT-Base-v2 42–47, BARTpho-word 42–47, ViSoBERT 42–46. For ViSoBERT use
-`--model-name uitnlp/visobert`; for BARTpho `--model-name vinai/bartpho-word`.
+Backbones and seeds used in the paper (`configs/seeds.tsv`): XLM-RoBERTa-Base 201–212 (12 runs
+per condition), PhoBERT-Base-v2 42–47 (6 runs), BARTpho-word 42–47 (6 runs), ViSoBERT 42–46 (5 runs),
+87 runs in total. For ViSoBERT use `--model-name uitnlp/visobert`; for BARTpho
+`--model-name vinai/bartpho-word`.
 
 Reference values (macro-F1, mean ± sd, test split):
 
-| Backbone | B1 | B2 | B3 |
-|---|---|---|---|
-| XLM-RoBERTa-Base | 0.6581 ± 0.0171 | 0.4434 ± 0.2383 | 0.4553 ± 0.2523 |
-| PhoBERT-Base-v2 | 0.6966 ± 0.0383 | 0.6384 ± 0.0829 | 0.6393 ± 0.0193 |
-| BARTpho-word | 0.6598 ± 0.0160 | 0.6392 ± 0.0213 | 0.6074 ± 0.0308 |
-| ViSoBERT | 0.7216 ± 0.0128 | 0.7067 ± 0.0161 | 0.6206 ± 0.0159 |
+| Backbone | Runs | B1 | B2 | B3 |
+|---|---|---|---|---|
+| XLM-RoBERTa-Base | 12 | 0.6206 ± 0.1306 | 0.4664 ± 0.2117 | 0.4730 ± 0.2173 |
+| PhoBERT-Base-v2 | 6 | 0.6966 ± 0.0383 | 0.6384 ± 0.0829 | 0.6393 ± 0.0193 |
+| BARTpho-word | 6 | 0.6598 ± 0.0160 | 0.6392 ± 0.0213 | 0.6074 ± 0.0308 |
+| ViSoBERT | 5 | 0.7216 ± 0.0128 | 0.7067 ± 0.0161 | 0.6192 ± 0.0141 |
+
+These are the values printed in Table 7 of the manuscript, recomputed from the saved per-seed
+outputs (`eval_target_perclass.py`, then averaged over the runs of each cell); the accuracy column of
+the table is reproduced by the same files. The large standard deviations of the XLM-RoBERTa-Base row
+are the seed-collapse effect discussed in Section 4.5: four of its twelve runs fall below a macro-F1
+of 0.30 under B2 and four under B3, against one under B1, and all runs are kept in the reported
+statistics.
 
 Note on B3: the marked spans come from the MRE for the **test split only** (531 rows); training and
 development rows keep their gold spans, because the MRE is trained on those same rows. The field
-`span_source` in the jsonl records this per row (`gold` or `pred`).
+`span_source` in the jsonl records this per row (`gold` or `pred`). B2 and B3 are therefore identical
+on all 4,829 train+development rows and differ only on the test split, where 435 of the 531 comments
+(81.9%) receive a different marked string — the gold and predicted span sets coincide in 96 comments,
+and among the remaining 435 the two span masks disagree on a median of 8 characters. Do not read the
+corpus-wide ratio (435 of 5,360, i.e. 8.1%) as evidence that the two conditions are near-identical
+inputs; on the evaluation set they are not.
 
 ## Per-class results and confusion matrices
 
@@ -128,8 +144,8 @@ revision's supporting information.
 | Block | Runs | Per run | Total |
 |---|---|---|---|
 | MRE (Table 6) | 5 | ~30 min | ~2.5 h |
-| Target identification (Table 7) | 54 (4 backbones × 3 conditions × seeds) | 5–9 min | ~6 h |
-| Per-class evaluation | 54 | seconds | minutes |
+| Target identification (Table 7) | 87 (4 backbones × 3 conditions × 12/6/6/5 seeds) | 5–9 min | ~9 h |
+| Per-class evaluation | 87 | seconds | minutes |
 
 ## Data provenance and licence
 
